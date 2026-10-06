@@ -1,0 +1,199 @@
+:root {
+  --seg: #9b9b97;
+  --seg-hover: #b4b9c2;
+  --hilite: #2f6fd0;
+  --ink: #1d1d1d;
+  --grid-minor: #e4e4e4;
+  --grid-major: #cfcfcf;
+}
+
+* { box-sizing: border-box; }
+
+html, body { height: 100%; margin: 0; }
+
+body {
+  font-family: "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  color: var(--ink);
+  background-color: #fff;
+  background-image:
+    linear-gradient(var(--grid-major) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-major) 1px, transparent 1px),
+    linear-gradient(var(--grid-minor) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-minor) 1px, transparent 1px);
+  background-size: 125px 125px, 125px 125px, 25px 25px, 25px 25px;
+  background-position: center center;
+}
+
+#menu {
+  height: 100%;
+  display: grid;
+  place-items: center;
+}
+
+#wheel {
+  width: min(94vmin, 760px);
+  height: min(94vmin, 760px);
+  overflow: visible;
+}
+
+.seg { cursor: pointer; outline: none; }
+.seg .body { fill: var(--seg); fill-opacity: 0.88; transition: fill 120ms; }
+.seg .hl { fill: none; stroke: var(--hilite); stroke-width: 8; opacity: 0; transition: opacity 120ms; }
+.seg:hover .body, .seg:focus-visible .body { fill: var(--seg-hover); }
+.seg:hover .hl, .seg:focus-visible .hl { opacity: 1; }
+
+.seg text {
+  fill: #fff;
+  font-size: 26px;
+  font-weight: 700;
+  text-anchor: middle;
+  dominant-baseline: middle;
+  pointer-events: none;
+  paint-order: stroke;
+  stroke: rgba(0, 0, 0, 0.35);
+  stroke-width: 3px;
+}
+
+.center-name { font-size: 30px; font-weight: 700; text-anchor: middle; fill: var(--ink); }
+.center-count { font-size: 22px; text-anchor: middle; fill: #555; }
+
+#view {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+#view[hidden] { display: none; }
+
+#back {
+  margin-top: 8px;
+  padding: 10px 28px;
+  font: inherit;
+  font-weight: 700;
+  color: #fff;
+  background: var(--seg);
+  border: 0;
+  cursor: pointer;
+}
+#back:hover, #back:focus-visible { background: var(--hilite); outline: none; }
+
+/* ---------- Feynman screen ---------- */
+#feynman {
+  position: fixed;
+  inset: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 24px 16px 40px;
+}
+#feynman[hidden] { display: none; }
+#feynman h1 { margin: 8px 0 0; font-size: 34px; }
+#feynman .hint { margin: 0; color: #555; }
+#feynman #fey-back { align-self: flex-start; }
+
+.btn {
+  padding: 10px 26px;
+  font: inherit;
+  font-weight: 700;
+  color: #fff;
+  background: var(--seg);
+  border: 0;
+  cursor: pointer;
+}
+.btn:hover, .btn:focus-visible { background: var(--hilite); outline: none; }
+.btn:disabled { opacity: 0.5; cursor: default; background: var(--seg); }
+
+.timer { position: relative; width: min(62vmin, 380px); aspect-ratio: 1; }
+.timer svg { width: 100%; height: 100%; }
+.timer circle { fill: rgba(255, 255, 255, 0.85); }
+.timer .track { fill: rgba(255, 255, 255, 0.85); stroke: var(--seg); stroke-opacity: 0.45; stroke-width: 22; }
+.timer .progress { fill: none; stroke: var(--hilite); stroke-width: 22; stroke-linecap: round; transition: stroke-dashoffset 0.15s linear; }
+.face {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: clamp(48px, 12vmin, 88px);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.controls { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: center; }
+.controls label { display: flex; align-items: center; gap: 6px; font-weight: 700; }
+.controls input {
+  width: 64px;
+  padding: 8px;
+  font: inherit;
+  text-align: center;
+  border: 2px solid var(--seg);
+  background: #fff;
+}
+.controls input:focus-visible { outline: none; border-color: var(--hilite); }
+.controls input:disabled { background: #eee; }
+
+#notes {
+  width: min(92vw, 720px);
+  min-height: 200px;
+  padding: 14px;
+  font: 18px/1.5 Arial, sans-serif;
+  border: 2px solid var(--seg);
+  resize: vertical;
+}
+#notes:focus-visible { outline: none; border-color: var(--hilite); }
+.status { margin: 0; min-height: 1.2em; font-weight: 700; }
+.status.live::before { content: "\25CF "; color: #d02f2f; }
+.interim { margin: 0; min-height: 1.2em; color: #777; font-style: italic; }
+
+/* ---------- Mind map screen ---------- */
+#mindmap { position: fixed; inset: 0; display: flex; flex-direction: column; }
+#mindmap[hidden] { display: none; }
+
+.mm-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.96);
+  border-bottom: 2px solid var(--seg);
+}
+.mm-bar label { display: flex; align-items: center; gap: 6px; font-weight: 700; }
+.mm-bar input[type="number"] { width: 60px; padding: 6px; font: inherit; text-align: center; border: 2px solid var(--seg); }
+.mm-bar input[type="color"] { width: 40px; height: 32px; padding: 0; border: 2px solid var(--seg); background: #fff; cursor: pointer; }
+.mm-bar input:focus-visible { outline: 2px solid var(--hilite); }
+.mm-tip { color: #666; font-size: 14px; margin-left: auto; }
+
+#mm-svg { flex: 1; width: 100%; min-height: 0; display: block; touch-action: none; user-select: none; -webkit-user-select: none; }
+
+.item { cursor: move; }
+.item .body { fill: #fff; stroke: #6b6b68; stroke-width: 2.5; vector-effect: non-scaling-stroke; }
+.item.sel .body { stroke: var(--hilite); }
+.item .arrow { stroke: #1d1d1d; stroke-width: 3; fill: none; }
+.item .halo { stroke: var(--hilite); stroke-opacity: 0.3; stroke-width: 11; stroke-linecap: round; }
+.item .hit { stroke: transparent; stroke-width: 18; }
+
+.item foreignObject { pointer-events: none; }
+.item.editing foreignObject { pointer-events: all; }
+.txt {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+  font-family: Arial, sans-serif;
+  line-height: 1.2;
+  outline: none;
+}
+.item.editing .txt { cursor: text; user-select: text; -webkit-user-select: text; }
+
+.selbox { fill: none; stroke: var(--hilite); stroke-width: 1.5; stroke-dasharray: 5 4; pointer-events: none; }
+.handle { fill: #fff; stroke: var(--hilite); stroke-width: 2; }

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Study Technique Test</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main id="menu">
+    <svg id="wheel" viewBox="0 0 700 700" role="group" aria-label="Study techniques"></svg>
+  </main>
+
+  <section id="view" hidden>
+    <h1 id="view-title"></h1>
+    <p>Coming soon.</p>
+    <button id="back" type="button">Back</button>
+  </section>
+
+  <section id="feynman" hidden>
+    <button id="fey-back" class="btn" type="button">Back</button>
+    <h1>Feynman Technique</h1>
+    <p class="hint">Explain your topic out loud as if teaching a beginner.</p>
+
+    <div class="timer">
+      <svg viewBox="0 0 360 360" aria-hidden="true">
+        <circle class="track" cx="180" cy="180" r="150"></circle>
+        <circle id="ring" class="progress" cx="180" cy="180" r="150" transform="rotate(-90 180 180)"></circle>
+      </svg>
+      <div id="face" class="face" role="timer">1:00</div>
+    </div>
+
+    <div class="controls">
+      <label>Minutes <input id="min" type="number" min="0" max="5" value="1" inputmode="numeric"></label>
+      <label>Seconds <input id="sec" type="number" min="0" max="59" value="00" inputmode="numeric"></label>
+      <button id="start" class="btn" type="button">Start</button>
+      <button id="reset" class="btn" type="button">Reset</button>
+    </div>
+
+    <textarea id="notes" placeholder="Type your explanation here, or press Start and speak."></textarea>
+    <p id="status" class="status" aria-live="polite"></p>
+    <p id="interim" class="interim"></p>
+  </section>
+
+  <section id="mindmap" hidden>
+    <div class="mm-bar">
+      <button id="mm-back" class="btn" type="button">Back</button>
+      <button class="btn" type="button" data-add="box">Rounded box</button>
+      <button class="btn" type="button" data-add="circle">Circle</button>
+      <button class="btn" type="button" data-add="cloud">Cloud</button>
+      <button class="btn" type="button" data-add="arrow">Arrow &rarr;</button>
+      <button class="btn" type="button" data-add="double">Double arrow &harr;</button>
+      <label>Text size <input id="mm-size" type="number" min="8" max="72" value="20"></label>
+      <label>Text colour <input id="mm-color" type="color" value="#1d1d1d"></label>
+      <button id="mm-del" class="btn" type="button">Delete</button>
+      <span class="mm-tip">Double-click a shape to edit its text.</span>
+    </div>
+    <svg id="mm-svg">
+      <defs>
+        <marker id="mm-head" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="#1d1d1d"></path>
+        </marker>
+      </defs>
+      <g id="mm-layer"></g>
+      <g id="mm-overlay"></g>
+    </svg>
+  </section>
+
+  <section id="sleep" hidden>
+    <button id="sleep-back" class="btn" type="button">Back</button>
+    <h1>Sleep</h1>
+
+    <div id="sleep-input" class="panel">
+      <h2>What time do you want to wake up?</h2>
+      <div class="picker" id="pick-wake"></div>
+      <button id="calc-bed" class="btn" type="button">Calculate bedtime</button>
+
+      <h2>What time do you want to go to bed?</h2>
+      <div class="picker" id="pick-bed"></div>
+      <button id="calc-wake" class="btn" type="button">Calculate wake-up time</button>
+    </div>
+
+    <div id="sleep-result" class="panel" hidden>
+      <h2 id="res-title"></h2>
+      <p id="res-intro"></p>
+      <div id="res-times" class="times"></div>
+      <p class="note">Waking at one of these times means you rise between 90-minute sleep cycles. A good night's sleep is 5 to 6 complete cycles. These are estimates, not medical advice.</p>
+      <button id="res-back" class="btn" type="button">Go back</button>
+    </div>
+
+    <label class="study-label" for="study">What did you study before bed?</label>
+    <textarea id="study" placeholder="Type what you studied tonight."></textarea>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
